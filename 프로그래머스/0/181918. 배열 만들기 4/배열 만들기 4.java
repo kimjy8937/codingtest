@@ -1,16 +1,16 @@
-import java.util.Stack;
+import java.util.ArrayDeque;
 
 class Solution {
     public int[] solution(int[] arr) {
         int[] stk = {};
-        Stack<Integer> numStk = new Stack<>();
+        ArrayDeque<Integer> numStk = new ArrayDeque<>();
         for(int i = 0; i < arr.length; i++){
             if(numStk.size()==0){
-                numStk.push(arr[i]);
-            }else if(numStk.peek() < arr[i]){
-                numStk.push(arr[i]);
+                numStk.addLast(arr[i]);
+            }else if(numStk.peekLast() < arr[i]){
+                numStk.addLast(arr[i]);
             }else{
-                numStk.pop();
+                numStk.removeLast();
                 i--;
             }
         }
