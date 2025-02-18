@@ -11,34 +11,18 @@ class Solution {
         if(nh == 1){
             return 1;
         }
+       
+        if(nh%2 == 0)
+            nw = n%w == 0 ? 0 : w-n%w;
+        else
+            nw = n%w == 0 ? w-1 : n%w-1;
         
-        
-        
-        
-        
-        if(numh%2 == 0){
-            if(num%w == 0)
-                numw = 0;
-            else
-                numw = w-num%w;
-        }else{
-            if(num%w == 0)
-                numw = w - 1;
-            else
-                numw = num%w-1;
-        }
-        
-        if(nh%2 == 0){
-            if(n%w == 0)
-                nw = 0;
-            else
-                nw = w-n%w;
-        }else{
-            if(n%w == 0)
-                nw = w - 1;
-            else
-                nw = n%w-1;
-        }
+        if(numh%2 == 0)
+            numw = num%w == 0 ? 0 : w-num%w;
+        else
+            numw = num%w == 0 ? w-1 : num%w-1;
+    
+    
         
         if(nh % 2 == 0)
             answer = nw > numw ? nh - numh : nh - numh +1;
