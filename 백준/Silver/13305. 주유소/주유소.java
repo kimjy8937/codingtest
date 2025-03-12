@@ -9,7 +9,7 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         int[] roads = new int[N-1];
         int[] prices = new int[N];
-        int totalPrice = 0;
+        long totalPrice = 0;
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         for(int i = 0; i < N-1; i++) {
@@ -28,7 +28,7 @@ public class Main {
         }
 
         for(int i = 0; i < N - 1; i++) {
-            totalPrice += prices[i] * roads[i];
+            totalPrice += ((long) prices[i] * roads[i]);
         }
 
         System.out.println(totalPrice);
