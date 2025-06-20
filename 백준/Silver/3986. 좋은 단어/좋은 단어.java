@@ -1,43 +1,31 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
+import java.io.*;
 
-public class Main {
+public class Main{
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        int answer = 0;
-
-
-        for(int i = 0; i < N; i++) {
-            Deque<Character> stk = new ArrayDeque<>();
-            String str = br.readLine();
-            char[] charArray = str.toCharArray();
-
-            for(char c : charArray) {
-                switch (c) {
-                    case 'A':
-                        if(!stk.isEmpty() && stk.peek() == 'A') {
-                            stk.pop();
-                        } else {
-                            stk.push(c);
-                        }
-                        break;
-                    case 'B':
-                        if(!stk.isEmpty() && stk.peek() == 'B') {
-                            stk.pop();
-                        } else {
-                            stk.push(c);
-                        }
-                        break;
+        int count = 0;
+        
+        
+        for(int i = 0; i < N; i++){
+            ArrayDeque<Character> stk = new ArrayDeque<>();
+            String word = br.readLine();
+            char[] cArr = word.toCharArray();
+            
+            for(int j = 0; j < cArr.length; j++){
+                if(stk.isEmpty()){
+                    stk.push(cArr[j]);
+                }else{
+                    if(stk.peek() == cArr[j])
+                        stk.pop();
+                    else
+                        stk.push(cArr[j]);
                 }
             }
-            if (stk.isEmpty()) {
-                answer++;
-            }
+            if(stk.isEmpty())
+                count++;
         }
-        System.out.println(answer);
+        System.out.println(count);
     }
 }
