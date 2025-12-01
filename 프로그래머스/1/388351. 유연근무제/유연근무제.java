@@ -11,13 +11,14 @@ class Solution {
                     if(startday+j == 6 || startday+j == 7 || startday+j == 13)
                         continue;
                     check -= 1;
-                }else if(schedule >= 2350){
-                    if(timelog < 10 && timelog + 2400 > schedule + 10){
-                        if(startday+j == 6 || startday+j == 7 || startday+j == 13)
-                        continue;
-                    }
-                    check -= 1;
                 }
+                // }else if(schedule >= 2350){
+                //     if(timelog < 10 && timelog + 2400 > schedule + 10){
+                //         if(startday+j == 6 || startday+j == 7 || startday+j == 13)
+                //         continue;
+                //     }
+                //     check -= 1;
+                // }
             }
             if(check == 5)
                 answer += 1;
