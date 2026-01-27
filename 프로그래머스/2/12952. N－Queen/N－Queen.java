@@ -1,33 +1,27 @@
+import java.util.*;
+
 class Solution {
-    private static int[] board;
-    private static int answer;
-
-    public static int solution(int n) {
-        board = new int[n];
-
-        backTracking(0, n);
-
-        return answer;
+    public String solution(String s) {
+        String answer = "";
+    	String[] arr = s.split(" ");
+    	for(int i=0; i<arr.length; i++) {
+    		String now = arr[i];
+    		if(arr[i].length() == 0) {
+    			answer += " ";
+    		} 
+    		else {
+    			answer += now.substring(0, 1).toUpperCase();
+    			answer += now.substring(1, now.length()).toLowerCase();
+    			answer += " ";
+    		}
+    		
+    	}
+    	
+    	if(s.substring(s.length()-1, s.length()).equals(" ")){
+    		return answer;
+    	}
+    	
+        return answer.substring(0, answer.length()-1);
     }
 
-    private static void backTracking(int depth, int n) {
-        if (depth == n) {
-            answer++;
-            return;
-        }
-        for (int i = 0; i < n; i++) {
-            board[depth] = i;
-            if (valid(depth)) {
-                backTracking(depth + 1, n);
-            }
-        }
-    }
-
-    private static boolean valid(int i) {
-        for (int j = 0; j < i; j++) { 
-            if (board[i] == board[j]) return false;
-            if (Math.abs(i - j) == Math.abs(board[i] - board[j])) return false;
-        }
-        return true;
-    }
 }
