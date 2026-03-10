@@ -11,15 +11,7 @@ public class Main {
 
     static int[] dx = {-1, 1, 0, 0};
     static int[] dy = {0, 0, -1, 1};
-    
-    static class Node{
-        int x, y;
-        Node(int x,int y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
-    
+
     public static void main(String[] args) throws Exception {
         N = Integer.parseInt(br.readLine());
         map = new int[N][N];
@@ -37,7 +29,7 @@ public class Main {
         for(int i = 0; i < N; i++){
             for(int j = 0; j < N; j++){
                 if(map[i][j] == 1 && !visited[i][j])
-                    list.add(bfs(i, j));
+                    list.add(dfs(i, j));
             }
         }
         
@@ -50,28 +42,19 @@ public class Main {
         System.out.print(sb);
     }
     
-    static int bfs(int x, int y) {
-        Queue<Node> q = new LinkedList<>();
-        q.offer(new Node(x, y));
+    static int dfs(int x, int y) {
         visited[x][y] = true;
-        
         int count = 1;
         
-        while(!q.isEmpty()){
-            Node now = q.poll();
+        for(int i = 0; i < 4; i++){
+            int nx = x + dx[i];
+            int ny = y + dy[i];
             
-            for(int i = 0; i < 4; i++){
-                int nx = now.x + dx[i];
-                int ny = now.y + dy[i];
-                
-                if(nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
-                if(visited[nx][ny]) continue;
-                if(map[nx][ny] == 0) continue;
-                
-                visited[nx][ny] = true;
-                q.offer(new Node(nx, ny));
-                count++;
-            }
+            if (nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
+            if (visited[nx][ny]) continue;
+            if (map[nx][ny] == 0) continue;
+            
+            count += dfs(nx, ny);
         }
         return count;
     }
