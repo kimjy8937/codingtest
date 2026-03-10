@@ -9,11 +9,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
         int N = Integer.parseInt(br.readLine());
         int M = Integer.parseInt(br.readLine());
-        
         String S = br.readLine();
-        makePn(N);
-        String Pn = sb.toString();
-        
+
+        int count = 0;
         int answer = 0;
         
         if(S.length() <= 2){
@@ -21,20 +19,17 @@ public class Main {
             return;
         }
         
-        for(int i = 0; i <= S.length()-(2*N+1); i++){
-            if (S.substring(i, i + (2 * N + 1)).equals(Pn)){
+        for(int i = 0; i < M-2; i++){
+            if (S.charAt(i) == 'I' && S.charAt(i+1) == 'O' && S.charAt(i+2) == 'I'){
+              count++;
+              if(count >= N){
                 answer++;
+              }
+              i++;
+            } else {
+              count = 0;
             }
         }
         System.out.println(answer);
-    }
-    
-    static void makePn(int n){
-        for(int i = 0; i <= n; i++){
-            sb.append('I');
-            if(i != n){
-                sb.append('O');
-            }
-        }
     }
 }
