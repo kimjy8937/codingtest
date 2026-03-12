@@ -36,19 +36,18 @@ public class Main{
     
     static int bfs(int start){
         Queue<Integer> q = new LinkedList<>();
-        q.offer(start);
         boolean[] visited = new boolean[N+1];
         int[] dist = new int[N+1];
         
+        q.offer(start);
         visited[start] = true;
-        
         while(!q.isEmpty()){
             int now = q.poll();
             for(int i = 1; i <= N; i++){
-                if(graph[now][i]==1 && !visited[i]){
+                if(graph[now][i] == 1 && !visited[i]){
                     visited[i] = true;
-                    dist[i] = dist[now] + 1;
                     q.offer(i);
+                    dist[i] = dist[now] + 1;
                 }
             }
         }
@@ -56,10 +55,6 @@ public class Main{
         for(int i = 1; i <= N; i++){
             sum += dist[i];
         }
-
         return sum;
-        
     }
-    
-    
 }
