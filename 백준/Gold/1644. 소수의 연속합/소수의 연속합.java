@@ -1,63 +1,52 @@
 import java.io.*;
 import java.util.*;
- 
-public class Main {
- 
-    static int N;
-    static boolean[] prime;
-    static List<Integer> primeList;
-    static int answer;
- 
-    static void setPrime() {
-        // 에라토스테네스의 체를 이용해 소수를 구하기
-        for (int i = 2; i * i <= N; i++) {
-            if (!prime[i]) {
-                for (int j = i * 2; j <= N; j += i) {
-                    prime[j] = true;
-                }
-            }
-        }
 
-        for (int i = 2; i <= N; i++) {
-            if (!prime[i])
-                primeList.add(i);
-        }
-    }
- 
-    static void findSum() {
-        // 투 포인터를 사용해 연속된 소수의 합으로 나타낼 수 있는 경우의 수를 구한다
-        int start = 0;
-        int end = 0;
-        int sum = 0;
- 
-        while (start < primeList.size()) {
-            if (sum >= N || end == primeList.size()) {
-                sum -= primeList.get(start++);
-            }
-            else {
-                sum += primeList.get(end++);
-            }
- 
-            if (sum == N)
-                answer++;
-        }
-    }
- 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
- 
-        N = Integer.parseInt(br.readLine());
- 
-        prime = new boolean[N + 1];
-        primeList = new ArrayList<>();
- 
-        // 소수는 false로 표시, 0과 1은 소수가 아니다
-        prime[0] = true;
-        prime[1] = true;
- 
-        setPrime();
-        findSum();
- 
-        System.out.println(answer);
-    }
+public class Main{
+    
+   static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+   public static void main (String[] args) throws Exception {
+       int N = Integer.parseInt(br.readLine());
+       
+       if(N < 2){
+           System.out.print(0);
+           return;
+       }
+       
+       boolean[] isPrime = new boolean[N+1];
+       
+       Arrays.fill(isPrime, true);
+       isPrime[0] = false;
+       isPrime[1] = false;
+       
+       for(int i = 2; i * i <= N; i++){
+           if(isPrime[i]){
+               for(int j = i * i; j <= N; j += i){
+                   isPrime[j] = false;
+               }
+           }
+       }
+       
+       ArrayList<Integer> primes = new ArrayList<>();
+       for(int i = 2; i <= N ; i++){
+           if(isPrime[i]){
+               primes.add(i);
+           }
+       }
+       
+       int left = 0;
+       int right = 0;
+       int sum = 0;
+       int count = 0;
+       while (true) {
+          if (sum >= N) {
+              if (sum == N) count++;
+                sum -= primes.get(left++);
+          } else {
+              if (right == primes.size()) break;
+              sum += primes.get(right++);
+          }
+      }
+       System.out.print(count);
+       return;
+   }
 }
