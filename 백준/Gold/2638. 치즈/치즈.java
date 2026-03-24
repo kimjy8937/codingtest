@@ -97,7 +97,6 @@ public class Main {
     	int count = 0;
     	while(!checkMap()) {
     		meltCheese();
-    		fillOutside(0,0);
     		count++;
     	}
     	
