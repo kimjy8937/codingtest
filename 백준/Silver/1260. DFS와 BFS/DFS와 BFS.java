@@ -1,63 +1,71 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    static List<Integer>[] graph;
+    static int N, M, V;
+    static StringBuilder sb;
     static boolean[] visited;
-    static StringBuilder sb = new StringBuilder();
+    static ArrayList<Integer>[] graph;
     
-    static void dfs(int v) {
-        visited[v] = true;
-        sb.append(v).append(' ');
-        for(int nx : graph[v]) {
-            if(!visited[nx]) dfs(nx);
-        }
-    }
-    
-    static void bfs(int v) {
-        Queue<Integer> q = new ArrayDeque<>();
-        q.add(v);
-        visited[v] = true;
+    static void bfs(){
+        Queue<Integer> q = new LinkedList<>();
+        visited = new boolean[N+1];
+        visited[V] = true;
+        sb.append(V).append(' ');
+        q.offer(V);
         while(!q.isEmpty()){
-            int cur = q.poll();
-            sb.append(cur).append(' ');
-            for(int nx : graph[cur]) {
-                if(!visited[nx]){
-                    visited[nx] = true;
-                    q.add(nx);
+            int now = q.poll();
+            for(int num : graph[now]){
+                if(!visited[num]){
+                    q.offer(num);
+                    visited[num] = true;
+                    sb.append(num).append(' ');
                 }
             }
         }
     }
     
-    public static void main(String[] args) throws IOException {
+    static void dfs(int num){
+        visited[num] = true;
+        sb.append(num).append(' ');
+        for(int n : graph[num]){
+            if(!visited[n]){
+                dfs(n);
+            }
+        }
+    }
+    
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-		int M = Integer.parseInt(st.nextToken());
-		int V = Integer.parseInt(st.nextToken());
-        visited = new boolean[N+1];
+        
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        V = Integer.parseInt(st.nextToken());
         
         graph = new ArrayList[N+1];
-        for (int i = 1; i <= N; i++) graph[i] = new ArrayList<>();
+        for(int i = 1; i <= N ; i++){
+            graph[i] = new ArrayList<>();
+        }
         
-        for (int i = 0; i < M; i++){
+        for(int i = 0; i < M; i++){
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            
             graph[a].add(b);
-            graph[b].add(a);    //무방향
+            graph[b].add(a);
         }
         
-        for(int i = 1; i <= N; i++) Collections.sort(graph[i]);
-        dfs(V);
-        System.out.println(sb.toString().trim());
-        sb = new StringBuilder();
+        for(int i = 1; i <= N; i++){
+            Collections.sort(graph[i]);
+        }
+
         visited = new boolean[N+1];
-        bfs(V);
-        System.out.println(sb.toString().trim());
+        sb = new StringBuilder();
+        dfs(V);
+        sb.append('\n');
+        bfs();
+
+        System.out.println(sb.toString());
     }
-    
-    
 }
